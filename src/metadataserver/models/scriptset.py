@@ -481,7 +481,7 @@ class ScriptSet(CleanSave, Model):
             | Q(key__startswith="firmware_")
             | Q(key__startswith="chassis_")
         ):
-            regexes.append("%s:%s" % (nmd.key, fnmatch.translate(nmd.value)))
+            regexes.append("%s:%s" % (nmd.key, re.escape(fnmatch.translate(nmd.value))))
         if len(regexes) > 0:
             node_hw_regex = re.compile("^%s$" % "|".join(regexes), re.I)
         else:
